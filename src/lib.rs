@@ -1,47 +1,54 @@
+#![recursion_limit = "512"]
+
+use yew::web_sys::{console, Node};
+use yew::virtual_dom::VNode;
+use yew::{Component, ComponentLink, Html, ShouldRender};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
+const HTML: &str = include_str!("document.html");
+
 struct Model {
-    link: ComponentLink<Self>,
     value: i64,
 }
 
 enum Msg {
-    AddOne,
+    
 }
 
 impl Component for Model {
     type Message = Msg;
     type Properties = ();
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self {
-            link,
-            value: 0,
-        }
+
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Model {value: 0}
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        match msg {
-            Msg::AddOne => self.value += 1
-        }
+    fn update(&mut self, _: Self::Message) -> ShouldRender {
         true
     }
 
     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
-        // Should only return "true" if new properties are different to
-        // previously received properties.
-        // This component has no properties so we will always return "false".
         false
     }
 
     fn view(&self) -> Html {
-        // a macro which allows you to write HTML and SVG code in program
-        html! {
-            <div>
-                <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
-                <p>{ self.value }</p>
-            </div>
-        }
+        let js_svg = {
+            let div = yew::web_sys::window()
+                .unwrap()
+                .document()
+                .unwrap()
+                .create_element("div")
+                .unwrap();
+            div.set_inner_html(HTML);
+            console::log_1(&div);
+            div
+        };
+        //eprintln!("js_svg: {:?}", js_svg);
+        let node = Node::from(js_svg);
+        let vnode = VNode::VRef(node);
+        //eprintln!("svg: {:?}", vnode);
+        vnode
     }
 }
 
