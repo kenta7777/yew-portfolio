@@ -1,5 +1,5 @@
 [package]
-name = "yew-sample-app"
+name = "yew-portfolio"
 version = "0.1.0"
 authors = ["kenta7777 <k.hasegw7@gmail.com>"]
 edition = "2018"
