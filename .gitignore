@@ -1,2 +1,5 @@
 target/
+static/
+!static/image
+!static/styles
 Cargo.lock
