@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions-rs/cargo@v1
-      with:
-        command: install
-        args: --force cargo-web
+        with:
+          command: install
+          args: --force cargo-web
       - uses: actions-rs/cargo@v1
-      with:
-        command: web
-        args: deploy
+        with:
+          command: web
+          args: deploy
       - uses: peaceiris/actions-gh-pages@v2.4.0
         env:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
