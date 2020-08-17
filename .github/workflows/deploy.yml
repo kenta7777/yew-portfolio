@@ -12,7 +12,6 @@ jobs:
       - name: wasm-pack-action
         uses: jetli/wasm-pack-action@v0.3.0
         with: 'latest'
-        run: wasm-pack build --target web --out-name wasm --out-dir ./static
       - name: rust-cargo
         uses: actions/checkout@v2
         uses: actions-rs/toolchain@v1
