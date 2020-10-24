@@ -6,21 +6,36 @@ on:
     - master
 
 jobs:
-  build-deploy:
-    runs-on: ubuntu-18.04
+  build:
+    
+    runs-on: ubuntu-latest
+    
     steps:
-      - name: wasm-pack-action
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: wasm-pack
         uses: jetli/wasm-pack-action@v0.3.0
         with:
           version: 'latest'
-      - name: rust-cargo
-        uses: actions/checkout@v2
+        
+      - name: build
+        run: wasm-pack build --target web --out-name wasm --out-dir ./static
+      
+      - name: install nightly
         uses: actions-rs/toolchain@v1
         with: 
           toolchain: nigitly
-      - run: cargo install miniserve
-      - run: cargo release
-      - uses: peaceiris/actions-gh-pages@v2.4.0
+          override: true
+      
+      - name: install miniserve
+        run: cargo install miniserve
+
+      - name: run
+        run: miniserve ./static --index index.html
+      
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v2.4.0
         env:
           PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
           PUBLISH_BRANCH: gh-pages
