@@ -25,7 +25,7 @@ jobs:
       - name: install nightly
         uses: actions-rs/toolchain@v1
         with: 
-          toolchain: nigitly
+          toolchain: nightly
           override: true
       
       - name: install miniserve
