@@ -32,7 +32,7 @@ jobs:
         run: cargo install miniserve
 
       - name: run
-        run: miniserve /home/runner/work/yew-portfolio/yew-portfolio/static --index index.html
+        run: cargo release
       
       - name: deploy
         uses: peaceiris/actions-gh-pages@v2.4.0
