@@ -19,7 +19,7 @@ jobs:
         with:
           version: 'latest'
         
-      - name: build
+      - name: wasm-pack build
         run: wasm-pack build --target web --out-name wasm --out-dir /home/runner/work/yew-portfolio/yew-portfolio/static
       
       - name: install nightly
@@ -28,16 +28,16 @@ jobs:
           toolchain: nightly
           override: true
 
-      - name: install release
+      - name: install cargo-release
         uses: actions-rs/toolchain@v1
         with: 
-          toolchain: release
+          toolchain: cargo-release
           override: true
       
       - name: install miniserve
         run: cargo install miniserve
 
-      - name: run
+      - name: release
         run: cargo release
       
       - name: deploy
