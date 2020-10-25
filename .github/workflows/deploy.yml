@@ -27,6 +27,12 @@ jobs:
         with: 
           toolchain: nightly
           override: true
+
+      - name: install release
+        uses: actions-rs/toolchain@v1
+        with: 
+          toolchain: release
+          override: true
       
       - name: install miniserve
         run: cargo install miniserve
