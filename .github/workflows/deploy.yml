@@ -20,7 +20,7 @@ jobs:
           version: 'latest'
         
       - name: build
-        run: wasm-pack build --target web --out-name wasm --out-dir ./static
+        run: wasm-pack build --target web --out-name wasm --out-dir /home/runner/work/yew-portfolio/yew-portfolio/static
       
       - name: install nightly
         uses: actions-rs/toolchain@v1
@@ -32,7 +32,7 @@ jobs:
         run: cargo install miniserve
 
       - name: run
-        run: miniserve ./static --index index.html
+        run: miniserve /home/runner/work/yew-portfolio/yew-portfolio/static --index index.html
       
       - name: deploy
         uses: peaceiris/actions-gh-pages@v2.4.0
